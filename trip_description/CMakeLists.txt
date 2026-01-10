@@ -10,7 +10,6 @@ install(DIRECTORY
   meshes 
   launch 
   rviz 
-  models 
   config
   DESTINATION share/${PROJECT_NAME}
 )
