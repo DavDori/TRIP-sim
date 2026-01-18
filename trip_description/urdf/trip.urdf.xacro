@@ -11,6 +11,7 @@
       <xacro:include filename='components/camera.xacro' />
       <xacro:include filename='components/imu.xacro' />
       <xacro:include filename='components/wheels.xacro' />
+      <xacro:include filename='components/trip.ros2_control.xacro' />
   </xacro:macro>
 
   <!-- Instantiate the model -->

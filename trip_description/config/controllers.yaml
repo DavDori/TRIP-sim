@@ -1,0 +1,26 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100
+    use_sim_time: true
+  
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+
+wheels_velocity_controller:
+  ros__parameters:
+    type: forward_command_controller/ForwardCommandController
+    joints:
+      - right_front_wheel_joint
+      - left_front_wheel_joint
+      - right_rear_wheel_joint
+      - left_rear_wheel_joint
+    interface_name: velocity
+
+
+lidar_roll_joint_velocity_controller:
+  ros__parameters:
+    type: forward_command_controller/ForwardCommandController
+    joints:
+      - lidar_roll_joint
+    interface_name: velocity
