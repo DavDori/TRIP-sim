@@ -5,7 +5,7 @@
     </material>
     
     <!-- Base link -->
-    <link name="base_link">
+    <link name="trip/base_link">
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <mass value="1.0"/>
@@ -15,7 +15,7 @@
                 izz="0.01"/>
         </inertial>
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 3.1416"/>
+            <origin xyz="0.003 -0.002 -0.075" rpy="0 0 3.1416"/>
             <geometry>
                 <mesh filename="package://trip_description/meshes/base_link.stl" scale="1 1 1"/>
             </geometry>

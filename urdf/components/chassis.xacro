@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
 <robot name="trip" xmlns:xacro="http://www.ros.org/wiki/xacro">
+      <xacro:property name="mesh_path" value="$(env TRIP_PATH)/meshes"/>
+
     <material name="light_black">
         <color rgba="0.4 0.4 0.4 1.0"/>
     </material>
@@ -21,7 +23,7 @@
     <visual>
         <origin xyz="0.003 -0.002 -0.075" rpy="0 0 ${pi}"/>
         <geometry>
-            <mesh filename="/home/davdori/trip_ws/src/TRIP-sim/trip_description/meshes/base_link.dae"/>
+            <mesh filename="${mesh_path}/base_link.dae"/>
         </geometry>
         <material name="light_black"/>
     </visual>

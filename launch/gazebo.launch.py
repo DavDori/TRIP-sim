@@ -3,18 +3,29 @@ import os
 from launch import LaunchDescription
 from launch.actions import (
     IncludeLaunchDescription,
+    RegisterEventHandler,
+    DeclareLaunchArgument,
 )
+from launch.conditions import IfCondition
+from launch.substitutions import LaunchConfiguration
+
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import Command, PathJoinSubstitution
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 from launch.event_handlers import OnProcessExit
-from launch.actions import RegisterEventHandler
 
 def generate_launch_description():
 
     pkg_trip = get_package_share_directory('trip_description')
-    urdf_file = os.path.join(pkg_trip, 'urdf', 'trip.urdf')
+    urdf_file = os.path.join(pkg_trip, 'urdf', 'trip.urdf.xacro')
+    use_rviz = LaunchConfiguration('use_rviz')
+
+    declare_use_rviz = DeclareLaunchArgument(
+        'use_rviz',
+        default_value='false',
+        description='Launch RViz'
+    )
 
     robot_controllers = PathJoinSubstitution(
         [
@@ -24,7 +35,6 @@ def generate_launch_description():
         ]
     )
 
-    # os.environ["GAZEBO_MODEL_PATH"] = os.path.join(pkg_trip, 'urdf')
     # Launch Gazebo Classic
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -69,6 +79,16 @@ def generate_launch_description():
         output="screen",
     )
 
+    # Vizualization of the TF and point cloud from the simulated robot. Note that it 
+    # will not show the model while running with Gazebo because of compatibility issues
+    rviz = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        arguments=['-d', os.path.join(pkg_trip, 'rviz', 'display.rviz')],
+        output='screen',
+        condition=IfCondition(use_rviz)
+    )
 
     # Spawn the robot in Gazebo using robot_description at desired position
     spawn_trip = Node(
@@ -96,10 +116,11 @@ def generate_launch_description():
         )
     )
 
-
     return LaunchDescription([
+        declare_use_rviz,
         gazebo,
         robot_state_publisher,
         spawn_trip,
         controller_spawners,
+        rviz,
     ])

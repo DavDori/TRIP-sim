@@ -1,5 +1,6 @@
 <?xml version='1.0' ?>
-<robot name='trip' xmlns:xacro='http://www.ros.org/wiki/xacro'>  
+<robot name='trip' xmlns:xacro='http://www.ros.org/wiki/xacro'> 
+
   <ros2_control name="gazebo_ros2_control" type="system">
     <hardware>
       <plugin>gazebo_ros2_control/GazeboSystem</plugin>
@@ -61,15 +62,31 @@
       <parameters>$(find trip_description)/config/controllers.yaml</parameters>
     </plugin>
   </gazebo>
-  <!-- No friction for rear wheel_joints -->
+  <!-- No friction for front wheel_joints -->
+  <!-- <gazebo reference="right_front_wheel_joint">
+    <mu1 value="0.8"/>
+    <mu2 value="0.1"/>
+    <slip1>0.2</slip1>
+    <slip2>0.2</slip2>
+  </gazebo>
+  <gazebo reference="left_front_wheel_joint">
+    <mu1 value="0.8"/>
+    <mu2 value="0.1"/>
+    <slip1>0.2</slip1>
+    <slip2>0.2</slip2>
+  </gazebo>
   <gazebo reference="right_rear_wheel_joint">
-    <mu1 value="0.0"/>
-    <mu2 value="0.0"/>
+    <mu1 value="0.8"/>
+    <mu2 value="0.1"/>
+    <slip1>0.2</slip1>
+    <slip2>0.2</slip2>
   </gazebo>
   <gazebo reference="left_rear_wheel_joint">
-    <mu1 value="0.0"/>
-    <mu2 value="0.0"/>
-  </gazebo>
+    <mu1 value="0.8"/>
+    <mu2 value="0.1"/>
+    <slip1>0.2</slip1>
+    <slip2>0.2</slip2>
+  </gazebo> -->
 
   
 </robot>

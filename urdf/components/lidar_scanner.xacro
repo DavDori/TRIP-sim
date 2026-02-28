@@ -1,12 +1,18 @@
 <?xml version="1.0"?>
 <robot name="trip" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:property name="mesh_path" value="$(env TRIP_PATH)/meshes"/>
   
+  <material name="blue_custom">
+      <color rgba="0.0 0.0 1.0 1.0"/>
+  </material>
 
   <link name="${robot_name}/lidar_pitch_link">
     <visual>
-      <geometry>
-        <box size="0.04 0.04 0.01"/>
-      </geometry>
+        <origin xyz="-0.02 0.00 0.0" rpy="0 0 ${pi}"/>
+        <geometry>
+            <mesh filename="${mesh_path}/lidar_fixed_base.dae"/>
+        </geometry>
+        <material name="blue_custom"/>
     </visual>
     <inertial>
       <mass value="0.1"/>
@@ -17,9 +23,11 @@
 
   <link name="${robot_name}/lidar_link">
     <visual>
-      <geometry>
-        <cylinder radius="0.015" length="0.02"/>
-      </geometry>
+        <origin xyz="0.00 0.00 0.00" rpy="0 0 ${pi}"/>
+        <geometry>
+            <mesh filename="${mesh_path}/lidar.dae"/>
+        </geometry>
+        <material name="blue_custom"/>
     </visual>
     <inertial>
       <mass value="0.01"/>
@@ -31,17 +39,17 @@
   </link>
 
   <joint name="lidar_roll_joint" type="revolute">
-    <parent link="${robot_name}/base_link"/>
-    <child link="${robot_name}/lidar_pitch_link"/>
-    <origin xyz="0.04 0 0.09" rpy="0 0 0"/>
+    <parent link="${robot_name}/lidar_pitch_link"/>
+    <child link="${robot_name}/lidar_link"/>
+    <origin xyz="0.01 0 0.01" rpy="0 0 0"/>
     <axis xyz="1 0 0"/>
     <limit lower="-0.35" upper="0.35" effort="1.0" velocity="1.0"/>
   </joint>
 
   <joint name="lidar_mount_joint" type="fixed">
-    <parent link="${robot_name}/lidar_pitch_link"/>
-    <child link="${robot_name}/lidar_link"/>
-    <origin xyz="0 0 0.01" rpy="0 0 0"/>
+    <parent link="${robot_name}/base_link"/>
+    <child link="${robot_name}/lidar_pitch_link"/>
+    <origin xyz="0.04 0 0.07" rpy="0 0 0"/>
   </joint>
 
   <gazebo reference="${robot_name}/lidar_link">
@@ -52,8 +60,8 @@
         <scan>
           <horizontal>
             <samples>720</samples>
-            <min_angle>-1.5708</min_angle>
-            <max_angle>1.5708</max_angle>
+            <min_angle>-3.14</min_angle>
+            <max_angle>3.14</max_angle>
           </horizontal>
         </scan>
         <range>
@@ -68,7 +76,7 @@
           <namespace>/trip</namespace>
           <remapping>~/out:=scan</remapping>
         </ros>
-        <frame_name>lidar_link</frame_name>
+        <frame_name>${robot_name}/lidar_link</frame_name>
         <output_type>sensor_msgs/LaserScan</output_type>
       </plugin>
     </sensor>
