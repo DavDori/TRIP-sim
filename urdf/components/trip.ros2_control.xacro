@@ -7,8 +7,8 @@
     </hardware>
     <joint name="lidar_roll_joint">
       <command_interface name="position">
-          <param name="min">${-30*pi/180.0}</param>
-          <param name="max">${30*pi/180.0}</param>
+          <param name="min">${lidar_min_rot}</param>
+          <param name="max">${lidar_max_rot}</param>
       </command_interface>
       <command_interface name="velocity">
         <param name="min">-1</param>
@@ -61,32 +61,5 @@
     <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
       <parameters>$(find trip_description)/config/controllers.yaml</parameters>
     </plugin>
-  </gazebo>
-  <!-- No friction for front wheel_joints -->
-  <!-- <gazebo reference="right_front_wheel_joint">
-    <mu1 value="0.8"/>
-    <mu2 value="0.1"/>
-    <slip1>0.2</slip1>
-    <slip2>0.2</slip2>
-  </gazebo>
-  <gazebo reference="left_front_wheel_joint">
-    <mu1 value="0.8"/>
-    <mu2 value="0.1"/>
-    <slip1>0.2</slip1>
-    <slip2>0.2</slip2>
-  </gazebo>
-  <gazebo reference="right_rear_wheel_joint">
-    <mu1 value="0.8"/>
-    <mu2 value="0.1"/>
-    <slip1>0.2</slip1>
-    <slip2>0.2</slip2>
-  </gazebo>
-  <gazebo reference="left_rear_wheel_joint">
-    <mu1 value="0.8"/>
-    <mu2 value="0.1"/>
-    <slip1>0.2</slip1>
-    <slip2>0.2</slip2>
-  </gazebo> -->
-
-  
+  </gazebo>  
 </robot>

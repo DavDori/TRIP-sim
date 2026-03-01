@@ -1,18 +1,17 @@
 <?xml version="1.0"?>
 <robot name="trip" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <xacro:property name='PI_2' value='1.5707963267948966'/>
   <xacro:arg name="robot_name" default="trip" />
 
-  <!-- Define the macro for the whole shelfino -->
+  <!-- Define the macro for the whole robot -->
   <xacro:macro name="trip" params='robot_name'>
 
+      <xacro:include filename='components/constants.xacro' />
       <xacro:include filename='components/chassis.xacro' />
       <xacro:include filename='components/lidar_scanner.xacro' />
       <xacro:include filename='components/camera.xacro' />
       <xacro:include filename='components/imu.xacro' />
       <xacro:include filename='components/wheels.xacro' />
       <xacro:include filename='components/trip.ros2_control.xacro' />
-      <!-- <xacro:include filename='components/gz_classic_drive.xacro' /> -->
   </xacro:macro>
 
   <!-- Instantiate the model -->

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<robot name="trip" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:property name="mesh_path" value="$(env TRIP_PATH)/meshes"/>
+
+    <!-- Wheel -->
+    <xacro:property name='wheel_x' value='0.07'/>
+    <xacro:property name='wheel_y' value='0.0716'/>
+    <xacro:property name='wheel_z' value='-0.042'/>
+    <xacro:property name='wheel_radius' value='0.034'/>
+    <xacro:property name='wheel_slip_mu' value='5.0'/>
+
+    <!-- LiDAR -->
+    <xacro:property name='lidar_min_rot' value='${-30*pi/180.0}'/>
+    <xacro:property name='lidar_max_rot' value='${30*pi/180.0}'/>
+    <xacro:property name='lidar_mount_x' value='0.04'/>
+    <xacro:property name='lidar_mount_y' value='0.00'/>
+    <xacro:property name='lidar_mount_z' value='0.07'/>
+    <xacro:property name='lidar_range' value='20.0'/>
+
+    <!-- IMU -->
+    <xacro:property name='imu_x' value='0.00'/>
+    <xacro:property name='imu_y' value='0.00'/>
+    <xacro:property name='imu_z' value='0.07'/>
+    <xacro:property name='ang_vel_noise_sigma' value='0.002'/>
+    <xacro:property name='lin_acc_noise_sigma' value='0.03'/>
+
+    <!-- Camera -->
+    <xacro:property name='camera_x' value='0.08'/>
+    <xacro:property name='camera_y' value='0.00'/>
+    <xacro:property name='camera_z' value='0.12'/>
+    <xacro:property name='camera_fps' value='20'/>
+    <xacro:property name='camera_fov_h_rad' value='1.396'/>
+    <xacro:property name='camera_res_width' value='640'/>
+    <xacro:property name='camera_res_height' value='480'/>
+
+</robot>
