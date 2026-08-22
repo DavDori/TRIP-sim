@@ -19,7 +19,15 @@ def generate_launch_description():
 
     pkg_trip = get_package_share_directory('trip_description')
     urdf_file = os.path.join(pkg_trip, 'urdf', 'trip.urdf.xacro')
+    world_path = 'empty.world'
     use_rviz = LaunchConfiguration('use_rviz')
+
+    world = LaunchConfiguration('world')
+    declare_world = DeclareLaunchArgument(
+        'world',
+        default_value=world_path,
+        description='Path to the world file'
+    )
 
     declare_use_rviz = DeclareLaunchArgument(
         'use_rviz',
@@ -44,7 +52,14 @@ def generate_launch_description():
                 'gazebo.launch.py'
             )
         ),
-        launch_arguments={'verbose': 'true'}.items()
+        launch_arguments={
+            'verbose': 'true',
+            'world': PathJoinSubstitution([
+                pkg_trip,
+                'worlds',
+                world
+            ]),
+        }.items()
     )
 
     # robot_state_publisher publishes TF for URDF
@@ -118,6 +133,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         declare_use_rviz,
+        declare_world,
         gazebo,
         robot_state_publisher,
         spawn_trip,
