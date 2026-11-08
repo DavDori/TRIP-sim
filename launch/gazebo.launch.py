@@ -83,7 +83,7 @@ def generate_launch_description():
     lidar_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["lidar_roll_joint_velocity_controller", "--param-file", robot_controllers],
+        arguments=["lidar_roll_joint_position_controller", "--param-file", robot_controllers],
         output="screen",
     )
 
